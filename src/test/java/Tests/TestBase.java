@@ -21,7 +21,7 @@ public class TestBase {
     public void terminateDriver() {
         System.out.println("Quitting WebDriver in TestBase...");
         if (driverManager != null) {
-            driverManager.quitDriver();
+            //driverManager.quitDriver();
         }
     }
 }

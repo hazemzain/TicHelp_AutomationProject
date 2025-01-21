@@ -21,6 +21,7 @@ public class AdminstrationPage {
    private final By LogoutButtonLocator=By.xpath("//*[@id=\"divRecent\"]/a");
     private final By GeneralSettingLocator=By.xpath("//*[@id=\"generalSettings\"]/div/a");
    private  final By ExtractOriginalEmailCheckerLocator=By.xpath("//*[@id=\"ExtractOriginalSenderFromFwd\"]");
+   private final By UserButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[1]/tbody/tr[2]/td/div/a");
    BrowserActions browserActions;
     Assertion assertion;
     public AdminstrationPage(WebDriver driver) {
@@ -122,5 +123,11 @@ public class AdminstrationPage {
     public  GeneralSettingPage ClikInGeneralSetting(){
         browserActions.click(GeneralSettingLocator);
         return  new GeneralSettingPage(browserActions.getDriver());
+    }
+
+    public  UsersPage ClickOnUsers(){
+        browserActions.click(UserButtonLocator);
+
+        return new UsersPage(browserActions.getDriver());
     }
 }
