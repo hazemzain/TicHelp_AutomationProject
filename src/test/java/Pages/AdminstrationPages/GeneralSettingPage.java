@@ -23,6 +23,8 @@ public class GeneralSettingPage {
     private final By FlipButtonLocator=By.xpath("//*[@id=\"IsFlipMenuHorizontal\"]");
     private  final By MenuBarColorLocator=By.xpath("//*[@id=\"MenuBarBGColor\"]");
     private  final  By ResetToDefault=By.xpath("//*[@id=\"aspnetForm\"]/div/table[1]/tbody[2]/tr[8]/td[2]/input");
+    private  final  By CustomThankMessageLocator=By.xpath("//*[@id=\"ThankYouText\"]");
+    private final By HideLogCheckerLocator =By.xpath("//*[@id='HideSystemComments']");
     public GeneralSettingPage UploadLogo(String FilePath){
         browserActions.click(UploadLogoLocator);
         WebElement fileInput = browserActions.getDriver().findElement(By.xpath("//*[@id=\"fileLogo\"]"));
@@ -131,6 +133,33 @@ public class GeneralSettingPage {
         String LayoutDisplay = tabMenu.getAttribute("id");
         return LayoutDisplay;
 
+    }
+    public GeneralSettingPage ChangeCustomThanksMessage(String Message){
+        browserActions.type(CustomThankMessageLocator,Message);
+        return  new GeneralSettingPage(browserActions.getDriver());
+    }
+
+
+    public GeneralSettingPage checkCheckboxHideLogAndPerformAction(boolean StatusWanted) {
+        // Locate the checkbox element
+        WebElement checkbox = browserActions.getDriver().findElement(HideLogCheckerLocator);
+
+        // Check if the checkbox is checked using the isSelected() method
+        if (checkbox.isSelected()) {
+            System.out.println("Hide Log is checked");
+            if (!StatusWanted){
+                checkbox.click();
+            }
+
+        } else {
+            System.out.println("Hide Log is not checked");
+            if (StatusWanted){
+                checkbox.click();
+            }
+
+
+        }
+        return new GeneralSettingPage(browserActions.getDriver());
     }
 
 

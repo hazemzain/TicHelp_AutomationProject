@@ -3,7 +3,14 @@ package Pages.TicketsPage;
 import Assertions.Assertion;
 import BrowserActions.BrowserActions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.time.Duration;
 
 public class TicketDetailsPage {
     BrowserActions browserActions;
@@ -26,7 +33,7 @@ public class TicketDetailsPage {
     private final By MoreOptionLocator=By.xpath("//*[@id=\"toolsbtn\"]");
     private final By ForwardEmailOptionLocator=By.xpath("//*[@id=\"toolbar\"]/div/div/ul/li[4]/a");
     private final By OriginalEmailLocator=By.xpath("//*[@id=\"lnkFrom\"]");
-
+    private final By LogLocator=By.xpath("//*[@id=\"tdComment2013\"]/div[1]");
 
     //Actions
     public void NavigateToTicketDetailsPage(String TicketName){
@@ -60,6 +67,17 @@ public class TicketDetailsPage {
 
     public String GetTheOriginalEmailForTicket(){
         return browserActions.getText(OriginalEmailLocator);
+    }
+
+    public Boolean CheckIfLogIsHideOrNot()
+    {
+     try {
+            // Check if log element is present and visible
+            return browserActions.findElement(LogLocator).isDisplayed();
+        } catch (NoSuchElementException e) {
+            // Element not found in DOM (fully hidden)
+            return false;
+        }
     }
 
 
