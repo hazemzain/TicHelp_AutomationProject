@@ -1,0 +1,13 @@
+{
+  "filters": [
+    {
+      "status": "New",
+      "priority": "Normal"
+    },
+    {
+
+      "status": "In progress",
+      "priority": "Low"
+    }
+  ]
+}
