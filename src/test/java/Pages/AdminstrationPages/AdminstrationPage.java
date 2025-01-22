@@ -11,7 +11,9 @@ import org.openqa.selenium.support.ui.Select;
 
 
 public class AdminstrationPage {
-    private final  By AdminstrationButton= By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[6]/a");
+    //*[@id="divBigHeader"]/ul/li/a[@href='/Admin']
+    //*[@id="divBigHeader"]/ul[1]/li[6]/a
+    private final  By AdminstrationButton= By.xpath("//*[@id=\"divBigHeader\"]/ul/li/a[@href='/Admin']");
     private  final By EmailSettingButton=By.xpath("//*[@id=\"emailSettings\"]/div/a");
     private final By DefualtEmailSettingCategory=By.id("MailCheckerNewIssuesCategoryID");
    private  final By MailCheckerLocator =By.xpath("//*[@id='MailCheckerAllowUnregisteredUsers']");
@@ -22,6 +24,7 @@ public class AdminstrationPage {
     private final By GeneralSettingLocator=By.xpath("//*[@id=\"generalSettings\"]/div/a");
    private  final By ExtractOriginalEmailCheckerLocator=By.xpath("//*[@id=\"ExtractOriginalSenderFromFwd\"]");
    private final By UserButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[1]/tbody/tr[2]/td/div/a");
+   private final By CheckLanguageLocator=By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[6]/a");
    BrowserActions browserActions;
     Assertion assertion;
     public AdminstrationPage(WebDriver driver) {
@@ -130,4 +133,9 @@ public class AdminstrationPage {
 
         return new UsersPage(browserActions.getDriver());
     }
+
+    public String CheckLanguage(){
+        return browserActions.getText(CheckLanguageLocator);
+    }
+
 }

@@ -29,6 +29,8 @@ public class CreateTicketForm {
     By TextDetails = By.xpath("//*[@id='rteBody']");
     By Address = By.id("CustomFieldValue28");
     private final By NewAddress=By.xpath("//*[@id=\"CustomFieldValue64\"]");
+   private final By PrioritydropdownLocator = By.xpath("//*[@id='PriorityID']");
+
     By advancedButton =By.id("lnkAdvanced");
     By tagField= By.id("Tags_tag");
     By SubmitButton = By.id("btnAdd");
@@ -108,6 +110,16 @@ public class CreateTicketForm {
     public CreateTicketForm EnterMail(String GuestMail){
         browserActions.type(GuestEmail,GuestMail );
         return new CreateTicketForm(browserActions.getDriver());
+    }
+    public CreateTicketForm ChoosePriority(String Priority){
+
+        WebDriverWait wait = new WebDriverWait(browserActions.getDriver(), Duration.ofSeconds(10));
+        WebElement priorityDropdown = wait.until(ExpectedConditions.elementToBeClickable(PrioritydropdownLocator));
+
+        Select select = new Select(priorityDropdown);
+
+        select.selectByVisibleText(Priority);
+        return  new CreateTicketForm(browserActions.getDriver());
     }
     public CreateTicketForm EnterNewSubject(String Subject){
         browserActions.type(subject,Subject );

@@ -4,9 +4,13 @@ import Assertions.Assertion;
 import BrowserActions.BrowserActions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class GeneralSettingPage {
     BrowserActions browserActions;
@@ -26,6 +30,11 @@ public class GeneralSettingPage {
     private  final  By CustomThankMessageLocator=By.xpath("//*[@id=\"ThankYouText\"]");
     private final By HideLogCheckerLocator =By.xpath("//*[@id='HideSystemComments']");
     private final By AvatarButtonLocator=By.xpath("//*[@id=\"DisableAvatars\"]");
+    private final By LanguageSelectorLocator=By.xpath("//*[@id='Language']");
+    private final By TIMEZONE_DROPDOWN_LOCATOR=By.xpath("//*[@id=\"aspnetForm\"]/div/table[3]/tbody[2]/tr[2]/td[2]/select");
+    private final By DisplayedTimeLocator=By.xpath("//*[@id=\"aspnetForm\"]/div/table[3]/tbody[2]/tr[2]/td[2]/p/b[1]");
+    private final By DisableKnowledgeBaseLocator=By.xpath("//*[@id='DisableKB']");
+    private final By KnowledgeTabLocator=By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[3]/a");
     public GeneralSettingPage UploadLogo(String FilePath){
         browserActions.click(UploadLogoLocator);
         WebElement fileInput = browserActions.getDriver().findElement(By.xpath("//*[@id=\"fileLogo\"]"));
@@ -186,6 +195,85 @@ public class GeneralSettingPage {
         return new GeneralSettingPage(browserActions.getDriver());
     }
 
+    public GeneralSettingPage selectLanguage(String language) {
+        WebElement languageDropdown = browserActions.getDriver().findElement(LanguageSelectorLocator);
+        Select dropdown = new Select(languageDropdown);
+        switch (language){
+            case "Arabic":
+                dropdown.selectByValue("ar-SA"); // or use selectByValue() if needed
+                break;
+            case "English":
+                dropdown.selectByValue("en-US");
+                break;
+            default:
+                dropdown.selectByValue("en-US");
+        }
+        return new GeneralSettingPage(browserActions.getDriver());
+    }
+    public GeneralSettingPage selectTimeZone( String timezone) {
+        WebElement dropdown = browserActions.findElement(TIMEZONE_DROPDOWN_LOCATOR);
+        Select select = new Select(dropdown);
+        select.selectByValue(timezone);
+        return new GeneralSettingPage(browserActions.getDriver());
+
+    }
+public boolean CheckTimeNow(){
+    String SELECTED_TIMEZONE = "Africa/Cairo";
+    ZoneId zoneId = ZoneId.of(SELECTED_TIMEZONE);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+    String displayedTimeNow= browserActions.getText(DisplayedTimeLocator).trim();
+    String displayedTime = displayedTimeNow.split(":")[0] + ":" + displayedTimeNow.split(":")[1];
+    String expectedTime = ZonedDateTime.now(zoneId).format(formatter);
+    System.out.println("The Actual Time Displayed is "+displayedTime);
+    System.out.println("The Expected Time Displayed is "+expectedTime);
+
+    return displayedTime.equals(expectedTime);
+
+}
+    public String GetTimeNow(){
+        String SELECTED_TIMEZONE = "Africa/Cairo";
+        ZoneId zoneId = ZoneId.of(SELECTED_TIMEZONE);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm");
+        String expectedTime = ZonedDateTime.now(zoneId).format(formatter);
+        System.out.println("The Expected Time Displayed is "+expectedTime);
+
+        return expectedTime;
+
+    }
+    public GeneralSettingPage checkCheckboxKnowledgeBaseAndPerformAction(boolean StatusWanted) {
+        // Locate the checkbox element
+        WebElement checkbox = browserActions.getDriver().findElement(DisableKnowledgeBaseLocator);
+
+        // Check if the checkbox is checked using the isSelected() method
+        if (checkbox.isSelected()) {
+            System.out.println("KnowledgeBase is checked");
+            if (!StatusWanted){
+                checkbox.click();
+            }
+
+        } else {
+            System.out.println("KnowledgeBase is not checked");
+            if (StatusWanted){
+                checkbox.click();
+            }
+
+
+        }
+        return new GeneralSettingPage(browserActions.getDriver());
+    }
+
+    public String CheckIfKnowledgeBaseIsHideOrNot()
+    {
+             return browserActions.getText(KnowledgeTabLocator);
+
+//        try {
+//            // Check if log element is present and visible
+//            return browserActions.findElement(KnowledgeTabLocator).isDisplayed();
+//        } catch (NoSuchElementException e) {
+//            // Element not found in DOM (fully hidden)
+//            return false;
+//        }
+    }
 
 
 

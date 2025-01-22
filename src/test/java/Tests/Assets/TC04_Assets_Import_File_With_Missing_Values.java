@@ -14,7 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TC04_Import_File_With_Missing_Values extends TestBase {
+public class TC04_Assets_Import_File_With_Missing_Values extends TestBase {
     String url = Config.getProperty("URL");
     Login login;
     NavBar navBar;

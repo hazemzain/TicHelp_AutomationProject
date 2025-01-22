@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class TicketDetailsPage {
     BrowserActions browserActions;
@@ -34,7 +37,7 @@ public class TicketDetailsPage {
     private final By ForwardEmailOptionLocator=By.xpath("//*[@id=\"toolbar\"]/div/div/ul/li[4]/a");
     private final By OriginalEmailLocator=By.xpath("//*[@id=\"lnkFrom\"]");
     private final By LogLocator=By.xpath("//*[@id=\"tdComment2013\"]/div[1]");
-
+    private final By TimeForLastTicket=By.xpath("//*[@id=\"lblTicketDate\"]");
     //Actions
     public void NavigateToTicketDetailsPage(String TicketName){
         browserActions.click(TicketDetailsPage(TicketName));
@@ -78,6 +81,19 @@ public class TicketDetailsPage {
             // Element not found in DOM (fully hidden)
             return false;
         }
+    }
+    public String GetTimeForLastTicket(){
+        String result = browserActions.getText(TimeForLastTicket).trim(); // Trim whitespace
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yyyy h:mm a", Locale.US); // Add Locale
+
+        LocalDateTime dateTime = LocalDateTime.parse(result, inputFormatter);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm ", Locale.US);
+
+        String timeOnly = dateTime.format(timeFormatter);
+
+
+        System.out.println(timeOnly);
+        return timeOnly;
     }
 
 

@@ -45,7 +45,7 @@ public class TC06_Assets_Import_With_LeaveEmptyAssets_Option extends TestBase {
         int NumberAfterUpdateFile=new AssetsPage(driver).
                 ClickAssertButton()
                 .ClickImportButton()
-                .ChooseFile("D:\\GBG_Projects\\TicHelp-ddt-tickets\\assetssmall.csv")
+                .ChooseFile("D:\\GBG_Projects\\TicHelp-ddt-tickets\\assetMissing.csv")
                 .ClickTryToUpdateExistingAssetsCheckBox()
                 .ClickLeaveEmptyFieldAssetsCheckBox()
                 .ClickUploadButton()
