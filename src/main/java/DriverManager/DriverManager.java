@@ -3,15 +3,19 @@ package DriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 public class DriverManager {
     private static WebDriver driver;
+
 
     public static WebDriver getDriver() {
         if (driver == null) {
             WebDriverManager.edgedriver().setup();
 
             driver = new EdgeDriver();
+
+
             driver.manage().window().maximize();
         }
         return driver;
