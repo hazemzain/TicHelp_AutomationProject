@@ -2,7 +2,7 @@ package Pages.AdminstrationPages;
 
 import Assertions.Assertion;
 import BrowserActions.BrowserActions;
-import Pages.AssetsPages.AssetsPage;
+import Pages.AdminstrationPages.AutomationRulesPages.AutomationRulePage;
 import Pages.LoginPage.Login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +25,7 @@ public class AdminstrationPage {
    private  final By ExtractOriginalEmailCheckerLocator=By.xpath("//*[@id=\"ExtractOriginalSenderFromFwd\"]");
    private final By UserButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[1]/tbody/tr[2]/td/div/a");
    private final By CheckLanguageLocator=By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[6]/a");
+   private final By AutomationRuleButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[3]/tbody/tr[1]/td[1]/div/a");
    BrowserActions browserActions;
     Assertion assertion;
     public AdminstrationPage(WebDriver driver) {
@@ -136,6 +137,11 @@ public class AdminstrationPage {
 
     public String CheckLanguage(){
         return browserActions.getText(CheckLanguageLocator);
+    }
+
+    public AutomationRulePage ClickInAutomationRules(){
+        browserActions.click(AutomationRuleButtonLocator);
+        return  new AutomationRulePage(browserActions.getDriver());
     }
 
 }
