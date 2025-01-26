@@ -38,9 +38,15 @@ public class TicketDetailsPage {
     private final By OriginalEmailLocator=By.xpath("//*[@id=\"lnkFrom\"]");
     private final By LogLocator=By.xpath("//*[@id=\"tdComment2013\"]/div[1]");
     private final By TimeForLastTicket=By.xpath("//*[@id=\"lblTicketDate\"]");
+    private final  By NumberOfTicketLocator=By.xpath("//*[@id=\"h2TicketId\"]");
+    private final By AssignToLocator=By.xpath("//*[@id=\"content\"]/div[5]/div[2]/table[1]/tbody[1]/tr[7]/td[2]/div/div[1]");
     //Actions
     public void NavigateToTicketDetailsPage(String TicketName){
         browserActions.click(TicketDetailsPage(TicketName));
+
+    }
+    public String GetTextAppear(){
+        return browserActions.getText(By.xpath("/html/body/div/h3"));
 
     }
 
@@ -51,6 +57,10 @@ public class TicketDetailsPage {
 
     public void ValidateTheReply(String expectedReply) {
         assertion.assertElementTextEquals(CommentBody, expectedReply);
+    }
+
+    public String AssignToWho(){
+        return browserActions.getText(AssignToLocator);
     }
 
     public void verifyTagDisplayed() {
@@ -94,6 +104,11 @@ public class TicketDetailsPage {
 
         System.out.println(timeOnly);
         return timeOnly;
+    }
+
+    public  String GetTheNumberOfTicket(){
+        return browserActions.getText(NumberOfTicketLocator).replace('#',' ').trim();
+
     }
 
 

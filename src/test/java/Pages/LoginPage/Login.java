@@ -20,7 +20,9 @@ public class Login {
     By LoginButton = By.xpath("//*[@id=\"loginForm\"]/table/tbody/tr[5]/td/input");
     By SubmitTicketAsGuest = By.xpath("//button[@class='submit_new_ticket']");
 
-    private final By SubmitNewTicketLocator=By.xpath("//td/button[@class='submit_new_ticket']"); //Actions
+    private final By SubmitNewTicketLocator=By.xpath("//td/button[@class='submit_new_ticket']");
+    //*[@id="newTicket"]/a//Actions
+    private final By SubmitNewTicketLocator2=By.xpath("//*[@id=\"newTicket\"]/a");
     public void navigateToWebsite(String url){
         browserActions.navigateToURl(url);
     }

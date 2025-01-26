@@ -3,6 +3,7 @@ package Pages.AdminstrationPages.AutomationRulesPages;
 import Assertions.Assertion;
 import BrowserActions.BrowserActions;
 import HelperClasses.AutomationRule;
+import Pages.TicketsPage.TicketDetailsPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,7 +40,9 @@ public class AutomationRulePage {
             WebElement cloneButton = row.findElement(By.cssSelector("td a.fa-copy[title='Clone rule']"));
             WebElement toggle = row.findElement(By.cssSelector("input[type='checkbox']"));
             WebElement Delete=row.findElement(By.cssSelector("a.delete[title='Delete'][href*='/Admin/DeleteRule/']"));
-            Rules.add(new AutomationRule(id, name, enabled, cloneButton,toggle,Delete));
+            WebElement Row=row.findElement(By.cssSelector("a[href^='/Admin/EditRule/']"));
+
+            Rules.add(new AutomationRule(id, name, enabled, cloneButton,toggle,Delete,Row));
         }
         return Rules;
     }
@@ -136,12 +139,32 @@ public class AutomationRulePage {
                 .count();
 
     }
+    public RuleDetailsPage clickSpecificRule(String ruleName) {
+        List<AutomationRule> ruleRows = GetAllRules();
 
+        AutomationRule targetRule = ruleRows.stream()
+                .filter(rule -> rule.getName().equalsIgnoreCase(ruleName))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Rule '" + ruleName + "' not found. Available rules: " +
+                                ruleRows.stream().map(AutomationRule::getName).collect(Collectors.toList())
+                ));
+
+        // Get the row element from the AutomationRule object
+        WebElement ruleElement = targetRule.getRowElement();
+
+        // Wait and click with scroll
+        new WebDriverWait(browserActions.getDriver(), Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(ruleElement));
+
+        ruleElement.click();
+
+        return new RuleDetailsPage(browserActions.getDriver());
+    }
     public AutomationRulePage  cloneRuleByName(String ruleName){
         // Get all rules with their clone buttons
         List<AutomationRule> rules = GetAllRules();
 
-        // Find the first rule with matching name (case-insensitive)
         AutomationRule targetRule = rules.stream()
                 .filter(rule -> rule.getName().equalsIgnoreCase(ruleName))
                 .findFirst()
