@@ -76,6 +76,7 @@ public class CustomReportPage {
     }
     protected String downloadDir = System.getProperty("user.dir") + File.separator + "downloads";
     public boolean waitForFileDownload(String fileExtension, int timeoutSeconds) {
+
         long endTime = System.currentTimeMillis() + (timeoutSeconds * 1000);
         while (System.currentTimeMillis() < endTime) {
             File lastDownloadedFile = getLastDownloadedFile(fileExtension);

@@ -3,8 +3,12 @@ package Utilities;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class FileOperation {
     private  String downloadDir="C:\\Users\\SoftLaptop\\Downloads";
@@ -42,4 +46,38 @@ public class FileOperation {
                 FileUtils.forceDelete(file);
             }
         }
-    }}
+    }
+
+    public  File getLastDownloadedFile( String extension) {
+        File directory = new File(downloadDir);
+
+        // Get all files with the given extension in the directory
+        File[] files = directory.listFiles((dir, name) -> name.endsWith(extension));
+
+        if (files == null || files.length == 0) {
+            return null; // No files found
+        }
+
+        // Sort files by last modified date, descending
+        Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
+
+        // Return the most recent file
+        return files[0];
+    }
+
+    public  boolean checkFileInZip( String Extention) throws IOException {
+        String Path=downloadDir+"\\"+getLastDownloadedFile("zip").getName();
+        try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(Path))) {
+            ZipEntry entry;
+
+            // Iterate through the ZIP entries
+            while ((entry = zipInputStream.getNextEntry()) != null) {
+                if (entry.getName().endsWith(Extention)) {
+                    return true; // File found
+                }
+            }
+        }
+        return false; // File not found
+    }
+
+}
