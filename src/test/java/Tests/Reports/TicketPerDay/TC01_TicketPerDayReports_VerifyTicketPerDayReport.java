@@ -1,18 +1,17 @@
-package Tests.Reports;
+package Tests.Reports.TicketPerDay;
 
 import Config.Config;
 import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
 import Tests.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC03_Reports_VerifyNavigationButtons extends TestBase {
+public class TC01_TicketPerDayReports_VerifyTicketPerDayReport extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -34,15 +33,15 @@ public class TC03_Reports_VerifyNavigationButtons extends TestBase {
         login.navigateToWebsite(url);
     }
     @Test
-    public void Reports_TheEditReportPermissionShouldBeVisibility_WhenGoToReportsPage () {
+    public void Reports_TheCustomReportShouldBeGenerated_WhenChooseTheCorrectCategoryAndClickButton () {
         navigateToUrl();
         login.ValidLogin();
-        String Url="http://20.117.78.174:8060/Reporting/Summary";
         new HomePage(driver)
                 .ClickOnReportButton()
-                .ClickInSummeryButton();
-
-        Assert.assertEquals(driver.getCurrentUrl(),Url);
+                .ClickOnTicketPerDay()
+                .ClickOnBuildButton()
+                .ValidateTheVisibailtyOfImagesReports()
+                ;
 
 
     }

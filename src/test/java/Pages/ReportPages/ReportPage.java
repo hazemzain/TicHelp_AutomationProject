@@ -24,6 +24,9 @@ public class ReportPage {
     private final By DrobDownsLocator=By.xpath("//*[@class='permissions']");
     private final By SummeryButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[1]/td[1]/div/a");
     private final By ResetToDefaultLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/div/input[2]");
+    private final By CustomReportButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[2]/td[1]/div/a");
+    private final By KanbanButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[5]/td[1]/div/a");
+    private final By TicketPerDayLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[1]/td[2]/div/a");
     private  WebDriver driver;
     private  WebDriverWait wait;
 
@@ -121,6 +124,21 @@ public SummeryPage ClickInSummeryButton(){
             Assert.assertEquals(getSelectedValue(dropdown), "Admins");
         }
 
+    }
+    public  CustomReportPage ClickOnCustomReport(){
+        browserActions.click(CustomReportButtonLocator);
+
+        return new CustomReportPage(browserActions.getDriver());
+    }
+    public  KanbanPage ClickOnKanban(){
+        browserActions.click(KanbanButtonLocator);
+
+        return new KanbanPage(browserActions.getDriver());
+    }
+    public  TicketPerDayPage ClickOnTicketPerDay(){
+        browserActions.click(TicketPerDayLocator);
+
+        return new TicketPerDayPage(browserActions.getDriver());
     }
 
 }

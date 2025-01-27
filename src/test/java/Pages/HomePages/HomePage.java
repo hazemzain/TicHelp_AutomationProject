@@ -27,4 +27,6 @@ public class HomePage {
         return new ReportPage(browserActions.getDriver());
     }
 
+
+
 }

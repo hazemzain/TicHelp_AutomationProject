@@ -1,11 +1,10 @@
-package Tests.Reports;
+package Tests.Reports.Kanbans;
 
 import Config.Config;
-import Pages.AdminstrationPages.AdminstrationPage;
-import Pages.AdminstrationPages.AutomationRulesPages.CreateRulePage;
 import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
+import Pages.ReportPages.KanbanPage;
 import Tests.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +13,7 @@ import org.testng.annotations.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC01_Reports_VerifyEditReportPermissionButtonVisibility extends TestBase {
+public class TC01_Kanbans_VerifyDragAndDropFunctionality extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -36,14 +35,21 @@ public class TC01_Reports_VerifyEditReportPermissionButtonVisibility extends Tes
         login.navigateToWebsite(url);
     }
     @Test
-    public void Reports_TheEditReportPermissionShouldBeVisibility_WhenGoToReportsPage () {
+    public void Kanbans_TheTicketShouldBeMoveFromNewToInProgress_WhenDragTheTicketFromNewAndButItInprogress () {
         navigateToUrl();
         login.ValidLogin();
-        boolean result=new HomePage(driver)
+        String resultBefore=new HomePage(driver)
                 .ClickOnReportButton()
-                .CheckTheEditButtonIsVisable();
+                .ClickOnKanban()
+                .GetNameForFristTicketInNew();
+        new KanbanPage(driver)
+                .DragAndDropFirstTicketFromNewToInProgress()
+                ;
+        String ResultAfter=new KanbanPage(driver)
+                .GetNameForFristTicketInProgress();
 
-        Assert.assertTrue(result);
+
+        Assert.assertEquals(ResultAfter,resultBefore);
 
 
     }

@@ -1,19 +1,17 @@
-package Tests.Reports;
+package Tests.Reports.ReportHome;
 
 import Config.Config;
 import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
-import Pages.ReportPages.ReportPage;
 import Tests.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC02_Reports_VerifyEditReportPermissionButtonFanctionality extends TestBase {
+public class TC04_Reports_VerifyRoleSelectionDropdown extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -35,20 +33,14 @@ public class TC02_Reports_VerifyEditReportPermissionButtonFanctionality extends 
         login.navigateToWebsite(url);
     }
     @Test
-    public void Reports_TheEditReportPermissionShouldBeVisibleAndFunctional_WhenClicked() {
+    public void Reports_TheEditReportPermissionShouldBeVisibility_WhenGoToReportsPage () {
         navigateToUrl();
         login.ValidLogin();
-        boolean result=new HomePage(driver)
+       new HomePage(driver)
                 .ClickOnReportButton()
-                .CheckTheEditButtonIsVisable();
-
-        Assert.assertTrue(result);
-
-        int NumberOfDrobDownAppear=new ReportPage(driver)
                 .ClickINEditButton()
-                .GetNumberOfDrobDownAppearAfterClickEditButton();
+                .verifyAndSelectPermissions();
 
-        Assert.assertEquals(NumberOfDrobDownAppear,17);
 
 
 

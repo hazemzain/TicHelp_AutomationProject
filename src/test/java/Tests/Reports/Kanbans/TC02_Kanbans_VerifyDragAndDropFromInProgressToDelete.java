@@ -1,18 +1,19 @@
-package Tests.Reports;
+package Tests.Reports.Kanbans;
 
 import Config.Config;
 import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
-import Pages.ReportPages.ReportPage;
+import Pages.ReportPages.KanbanPage;
 import Tests.TestBase;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC05_Reports_VerifyResetButtonSelectionDropdownToDefault extends TestBase {
+public class TC02_Kanbans_VerifyDragAndDropFromInProgressToDelete extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -34,20 +35,21 @@ public class TC05_Reports_VerifyResetButtonSelectionDropdownToDefault extends Te
         login.navigateToWebsite(url);
     }
     @Test
-    public void Reports_TheEditReportPermissionShouldBeVisibility_WhenGoToReportsPage () {
+    public void Kanbans_TheTicketShouldBeMoveFromInProgressToDelete_WhenDragTheTicketFromItInprogressAndPutItInDeletePlace () {
         navigateToUrl();
         login.ValidLogin();
-       new HomePage(driver)
+        int resultBefore=new HomePage(driver)
                 .ClickOnReportButton()
-                .ClickINEditButton()
-                .verifyAndSelectPermissions();
+                .ClickOnKanban()
+                .GetNumberOfTicketInProgress();
+        new KanbanPage(driver)
+                .DragAndDropFirstTicketFromInProgressToClosed()
+                ;
+        int ResultAfter=new KanbanPage(driver)
+                .GetNumberOfTicketInProgress();
 
-       new ReportPage(driver)
-               .ClickInResetToDefault()
-               .ClickINEditButton()
-               .verifyResetButtonAfterChangeTheDropDowns();
 
-
+        Assert.assertEquals(resultBefore-ResultAfter,1);
 
 
     }
