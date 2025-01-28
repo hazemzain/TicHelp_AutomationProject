@@ -14,7 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class Assets_Import_LargeSizeCSVfile extends TestBase {
+public class TC01_Assets_Import_LargeSizeCSVfile extends TestBase {
     String url = Config.getProperty("URL");
     Login login;
     NavBar navBar;

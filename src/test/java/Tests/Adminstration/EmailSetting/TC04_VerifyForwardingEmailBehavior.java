@@ -1,4 +1,4 @@
-package Tests.Adminstration;
+package Tests.Adminstration.EmailSetting;
 
 import Config.Config;
 import Pages.AdminstrationPages.AdminstrationPage;

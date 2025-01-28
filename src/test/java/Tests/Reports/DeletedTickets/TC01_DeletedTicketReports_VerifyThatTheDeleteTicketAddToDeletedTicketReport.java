@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC02_DeletedTicketReports_VerifyThatTheDeleteTicketAddToDeletedTicketReport extends TestBase {
+public class TC01_DeletedTicketReports_VerifyThatTheDeleteTicketAddToDeletedTicketReport extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;

@@ -1,6 +1,5 @@
-package Tests.Adminstration;
+package Tests.Adminstration.EmailSetting;
 
-import Assertions.Assertion;
 import Config.Config;
 import Pages.AdminstrationPages.AdminstrationPage;
 import Pages.LoginPage.Login;
