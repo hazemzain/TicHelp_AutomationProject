@@ -1,4 +1,4 @@
-package Tests.Reports.TicketPerDay;
+package Tests.Reports.DueDatesCalendar;
 
 import Config.Config;
 import CustomAnnotation.RootCause;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport extends TestBase {
+public class TC02_DueDateDay_VerifyExportToicalFileButtonFunctionalityInDueDataReport extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -39,16 +39,17 @@ public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport 
 
     @Test(groups = "ReportFailure",description = "Verify the Functionality of Csv Button")
 
-    public void TicketPerDay_TheCsvFileShouldBeGenerated_WhenClickInCsv () throws InterruptedException, IOException {
+    public void DueDate_TheIcalFileShouldBeGenerated_WhenClickInExportToIcal () throws InterruptedException, IOException {
         navigateToUrl();
         login.ValidLogin();
         boolean Result=new HomePage(driver)
                 .ClickOnReportButton()
-                .ClickOnTicketPerDay()
-                .DeleteAllCsvFile()
-                .ClickOnCsvButton()
-                .CheckDownloadedZipFile();
-        Thread.sleep(5000);
+                .ClickOnDueDateReport()
+                .selectPeriodDropdownValue("test")
+                .ClickInBuildButton()
+                .CleanAllIcalFile()
+                .ClickOnExportIcalButton()
+                .waitForFileDownload("ics",30);
         Assert.assertTrue(Result);
 
 

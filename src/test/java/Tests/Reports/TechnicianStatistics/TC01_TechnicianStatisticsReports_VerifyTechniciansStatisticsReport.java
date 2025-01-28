@@ -1,20 +1,17 @@
-package Tests.Reports.TicketPerDay;
+package Tests.Reports.TechnicianStatistics;
 
 import Config.Config;
-import CustomAnnotation.RootCause;
 import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
 import Tests.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport extends TestBase {
+public class TC01_TechnicianStatisticsReports_VerifyTechniciansStatisticsReport extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -35,21 +32,27 @@ public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport 
     public void navigateToUrl() {
         login.navigateToWebsite(url);
     }
-    @RootCause("For Failure:when Click In Csv File The Zip File Is Downloaded")
 
-    @Test(groups = "ReportFailure",description = "Verify the Functionality of Csv Button")
-
-    public void TicketPerDay_TheCsvFileShouldBeGenerated_WhenClickInCsv () throws InterruptedException, IOException {
+    @Test()
+    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () {
         navigateToUrl();
         login.ValidLogin();
-        boolean Result=new HomePage(driver)
+
+        new HomePage(driver)
+                .ClickInNewTicketButton()
+                .ChoosePriority("High")
+                .EnterNewSubject("Test"+formattedDateTime)
+                .EnterNewDetails("This is for Test Automation HelpDisk")
+                .EnterNewAddress("Egypt")
+                .ClickNewSubmitButton();
+        new HomePage(driver)
                 .ClickOnReportButton()
-                .ClickOnTicketPerDay()
-                .DeleteAllCsvFile()
-                .ClickOnCsvButton()
-                .CheckDownloadedZipFile();
-        Thread.sleep(5000);
-        Assert.assertTrue(Result);
+                .ClickOnTechniciansStatistics()
+                .SelectCheckAllInCategory()
+                .selectPeriodDropdownValue("Last week")
+                .ClickInBuildButton()
+                .ValidateUserTable()
+                ;
 
 
     }

@@ -1,10 +1,10 @@
-package Tests.Reports.TicketPerDay;
+package Tests.Reports.UserStatics;
 
 import Config.Config;
-import CustomAnnotation.RootCause;
 import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
+import Pages.ReportPages.UserStaticsPage;
 import Tests.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport extends TestBase {
+public class TC03_UserStaticsReports_VerifyCsvButtonFuncationality extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -35,21 +35,22 @@ public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport 
     public void navigateToUrl() {
         login.navigateToWebsite(url);
     }
-    @RootCause("For Failure:when Click In Csv File The Zip File Is Downloaded")
 
-    @Test(groups = "ReportFailure",description = "Verify the Functionality of Csv Button")
-
-    public void TicketPerDay_TheCsvFileShouldBeGenerated_WhenClickInCsv () throws InterruptedException, IOException {
+    @Test()
+    public void UsersStatics_TheUserStaticsShouldBeGenerated_WhenClickInCSVButton () throws IOException {
         navigateToUrl();
         login.ValidLogin();
         boolean Result=new HomePage(driver)
                 .ClickOnReportButton()
-                .ClickOnTicketPerDay()
-                .DeleteAllCsvFile()
+                .ClickOnUserStatics()
+                .selectPeriodDropdownValue("Last week")
+                .CleanAllCsvFile()
+                .ClickInBuildButton()
                 .ClickOnCsvButton()
-                .CheckDownloadedZipFile();
-        Thread.sleep(5000);
+                .waitForFileDownload("csv",30);
         Assert.assertTrue(Result);
+
+
 
 
     }

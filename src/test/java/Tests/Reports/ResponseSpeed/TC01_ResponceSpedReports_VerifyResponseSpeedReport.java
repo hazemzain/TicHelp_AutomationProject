@@ -1,4 +1,4 @@
-package Tests.Reports.TicketPerDay;
+package Tests.Reports.ResponseSpeed;
 
 import Config.Config;
 import CustomAnnotation.RootCause;
@@ -6,15 +6,13 @@ import Pages.HomePages.HomePage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
 import Tests.TestBase;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport extends TestBase {
+public class TC01_ResponceSpedReports_VerifyResponseSpeedReport extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -35,21 +33,20 @@ public class TC02_TicketPerDay_VerifyCsvButtonFunctionalityInTicketPerDayReport 
     public void navigateToUrl() {
         login.navigateToWebsite(url);
     }
-    @RootCause("For Failure:when Click In Csv File The Zip File Is Downloaded")
+    @RootCause("For Failure:when choose check all from Category and Select Last week and click bulid 404 Eeror Page appear")
 
-    @Test(groups = "ReportFailure",description = "Verify the Functionality of Csv Button")
-
-    public void TicketPerDay_TheCsvFileShouldBeGenerated_WhenClickInCsv () throws InterruptedException, IOException {
+    @Test(groups = "ReportFailure",description = "Verify the Response Time Graphs")
+    public void Reports_TheResponseSpeedShouldBeGenerated_WhenChooseTheCorrectCategoryAndClickButton () {
         navigateToUrl();
         login.ValidLogin();
-        boolean Result=new HomePage(driver)
+        new HomePage(driver)
                 .ClickOnReportButton()
-                .ClickOnTicketPerDay()
-                .DeleteAllCsvFile()
-                .ClickOnCsvButton()
-                .CheckDownloadedZipFile();
-        Thread.sleep(5000);
-        Assert.assertTrue(Result);
+                .ClickOnResponseSpeed()
+                .SelectCheckAllInCategory()
+                .selectPeriodDropdownValue("Last week")
+                .ClickInBuildButton()
+                .ValidateTheVisibailtyOfImagesReports()
+                ;
 
 
     }

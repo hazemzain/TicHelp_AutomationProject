@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 public class HomePage {
     private final By NewTicketLocator= By.xpath("//*[@id=\"newTicket\"]/a");
+
     private final By EditReportPermissionLocator=By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[5]/a");
     BrowserActions browserActions;
     Assertion assertion;

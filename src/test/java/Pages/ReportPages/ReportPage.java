@@ -27,6 +27,12 @@ public class ReportPage {
     private final By CustomReportButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[2]/td[1]/div/a");
     private final By KanbanButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[5]/td[1]/div/a");
     private final By TicketPerDayLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[1]/td[2]/div/a");
+    private final By ResponseTimeButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[2]/td[2]/div/a");
+    private final By DueDateReportButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[4]/td[2]/div/a");
+    private final By UserStaticsButtonLocator=By.xpath("//*[@id=\"content\"]/div[6]/form/table[2]/tbody/tr[1]/td[1]/div/a");
+    private final By TechnitionLocator=By.xpath("//*[@id=\"content\"]/div[6]/form/table[2]/tbody/tr[2]/td[1]/div/a");
+    private final By DeletedTickets=By.xpath("//*[@id=\"content\"]/div[6]/form/table[3]/tbody/tr[1]/td[1]/div/a");
+    private final By AuditLogButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[3]/tbody/tr[1]/td[2]/div/a");
     private  WebDriver driver;
     private  WebDriverWait wait;
 
@@ -130,6 +136,11 @@ public SummeryPage ClickInSummeryButton(){
 
         return new CustomReportPage(browserActions.getDriver());
     }
+    public  DueDateReportPage ClickOnDueDateReport(){
+        browserActions.click(DueDateReportButtonLocator);
+
+        return new DueDateReportPage(browserActions.getDriver());
+    }
     public  KanbanPage ClickOnKanban(){
         browserActions.click(KanbanButtonLocator);
 
@@ -140,5 +151,34 @@ public SummeryPage ClickInSummeryButton(){
 
         return new TicketPerDayPage(browserActions.getDriver());
     }
+
+    public  ResponseSpeedPage ClickOnResponseSpeed(){
+        browserActions.click(ResponseTimeButtonLocator);
+
+        return new ResponseSpeedPage(browserActions.getDriver());
+    }
+    public  UserStaticsPage ClickOnUserStatics(){
+        browserActions.click(UserStaticsButtonLocator);
+
+        return new UserStaticsPage(browserActions.getDriver());
+    }
+    public  TechniciansStatisticsPage ClickOnTechniciansStatistics(){
+        browserActions.click(TechnitionLocator);
+
+        return new TechniciansStatisticsPage(browserActions.getDriver());
+    }
+    public DeletedTicketPage ClickOnDeletedTicket(){
+        browserActions.click(DeletedTickets);
+
+        return new DeletedTicketPage(browserActions.getDriver());
+    }
+    public AuditLogPage ClickOnAuditLogTicket(){
+        browserActions.click(AuditLogButtonLocator);
+
+        return new AuditLogPage(browserActions.getDriver());
+    }
+
+
+
 
 }
