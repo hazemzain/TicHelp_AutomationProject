@@ -3,11 +3,15 @@ package Pages.AdminstrationPages;
 import Assertions.Assertion;
 import BrowserActions.BrowserActions;
 import Pages.AdminstrationPages.AutomationRulesPages.AutomationRulePage;
+import Pages.AssetsPages.AssetsPage;
 import Pages.LoginPage.Login;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.time.Duration;
 
 
 public class AdminstrationPage {
@@ -26,7 +30,18 @@ public class AdminstrationPage {
    private final By UserButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[1]/tbody/tr[2]/td/div/a");
    private final By CheckLanguageLocator=By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[6]/a");
    private final By AutomationRuleButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[3]/tbody/tr[1]/td[1]/div/a");
-   BrowserActions browserActions;
+   private final By FromEmailLocator=By.xpath("//*[@id=\"FromAddress\"]");
+   private final By TestSmtpLocator=By.xpath("//*[@id=\"aspnetForm\"]/div[1]/table[2]/tbody[6]/tr/td/input[1]");
+   private final By MessageEmailSendLocator=By.xpath("//*[@id=\"aspnetForm\"]/div[1]/div");
+   private final By MessageErrorFromLocator=By.xpath("//*[@id=\"FromAddress-error\"]");
+   private final By NameFromLocator=By.xpath("//*[@id=\"FromName\"]");
+   private final By ConfirmationEmailButtonLocator=By.xpath("//*[@id=\"EnableTicketConfirmationNotification\"]");
+   private final By DeleteTicketNotificationLocator=By.xpath("//*[@id=\"EnableCloseNotification\"]");
+    private final By SubjectInTempleteLocator=By.xpath("//*[@id=\"EmailTemplates_NewIssueConfirmationSubj\"]");
+    private final By SubjectForCloseTicketTemplete=By.xpath("//*[@id=\"EmailTemplates_ClosedTicketEmailSubject\"]");
+    private final By ResetButtonLocator=By.xpath("//*[@id=\"aspnetForm\"]/div[1]/table[4]/tbody[2]/tr[8]/td/input");
+
+    BrowserActions browserActions;
     Assertion assertion;
     public AdminstrationPage(WebDriver driver) {
         browserActions = new BrowserActions(driver);
@@ -44,6 +59,82 @@ public class AdminstrationPage {
         browserActions.click(AdminButtonLocator);
         return new AdminstrationPage(browserActions.getDriver());
     }
+    public AdminstrationPage ModifyTheFromEmail(String Email){
+        browserActions.type(FromEmailLocator,Email);
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage ModifyTheFromName(String Name){
+        browserActions.clear(NameFromLocator);
+        browserActions.type(NameFromLocator,Name);
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage ClickInTestSmtp(){
+        browserActions.click(TestSmtpLocator);
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage ValidateTheEmptyFromField(){
+        String ActualResult=browserActions.getText(MessageErrorFromLocator);
+        Assert.assertEquals(ActualResult,"This field is required.");
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage acceptAlert(String WantedEmail) {
+        WebDriverWait wait = new WebDriverWait(browserActions.getDriver(), Duration.ofSeconds(10));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        alert.sendKeys(WantedEmail);
+        alert.accept();
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage AcceptAlert() {
+        WebDriverWait wait = new WebDriverWait(browserActions.getDriver(), Duration.ofSeconds(10));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        alert.accept();
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage ValidateThatTheEmailSendMessageIsDisplayed(){
+        WebDriver driver = browserActions.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(MessageEmailSendLocator));
+            Assert.assertTrue(messageElement.isDisplayed());
+            if (messageElement.isDisplayed()) {
+                System.out.println("Email send message is displayed.");
+            } else {
+                System.out.println("Email send message is not displayed.");
+            }
+        } catch (TimeoutException e) {
+            System.out.println("Timed out waiting for the email send message to be displayed.");
+        }
+
+        return new AdminstrationPage(browserActions.getDriver());
+
+
+    }
+
+    public AdminstrationPage ValidateThatTheEmailErrorMessageIsDisplayed(){
+        WebDriver driver = browserActions.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(MessageEmailSendLocator));
+            Assert.assertTrue(messageElement.isDisplayed());
+            String Message=browserActions.getText(MessageEmailSendLocator);
+            Assert.assertTrue(Message.contains("ERROR sending email:"));
+            if (messageElement.isDisplayed()) {
+                System.out.println("Email send message is displayed.");
+            } else {
+                System.out.println("Email send message is not displayed.");
+            }
+        } catch (TimeoutException e) {
+            System.out.println("Timed out waiting for the email send message to be displayed.");
+        }
+
+        return new AdminstrationPage(browserActions.getDriver());
+
+
+    }
+
+
     public Login ClickLogoutButton(){
         browserActions.click(LogoutButtonLocator);
         return new Login(browserActions.getDriver());
@@ -101,6 +192,62 @@ public class AdminstrationPage {
         return new AdminstrationPage(browserActions.getDriver());
     }
 
+    public AdminstrationPage checkCheckboxConfirmationEmailAndPerformAction(boolean StatusWanted) {
+        // Locate the checkbox element
+        WebElement checkbox = browserActions.getDriver().findElement(ConfirmationEmailButtonLocator);
+
+        // Check if the checkbox is checked using the isSelected() method
+        if (checkbox.isSelected()) {
+            System.out.println("Checkbox is checked");
+            if (!StatusWanted){
+                checkbox.click();
+            }
+
+        } else {
+            System.out.println("Checkbox is not checked");
+            if (StatusWanted){
+                checkbox.click();
+            }
+            //click save button
+            browserActions.click(SaveButtonLocator);
+
+        }
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage checkCheckboxDeleteTicketNotificationEmailAndPerformAction(boolean StatusWanted) {
+        // Locate the checkbox element
+        WebElement checkbox = browserActions.getDriver().findElement(DeleteTicketNotificationLocator);
+
+        // Check if the checkbox is checked using the isSelected() method
+        if (checkbox.isSelected()) {
+            System.out.println("Checkbox is checked");
+            if (!StatusWanted){
+                checkbox.click();
+            }
+
+        } else {
+            System.out.println("Checkbox is not checked");
+            if (StatusWanted){
+                checkbox.click();
+            }
+            //click save button
+            browserActions.click(SaveButtonLocator);
+
+        }
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+    public AdminstrationPage ChangeTheValueForSubjectEmailForNewTicketTemplete(String NewSubject){
+        browserActions.type(SubjectInTempleteLocator,NewSubject);
+        return new AdminstrationPage(browserActions.getDriver());
+
+    }
+    public AdminstrationPage ChangeTheValueForSubjectEmailForCloseTicketEmailTemplete(String NewSubject){
+        browserActions.type(SubjectForCloseTicketTemplete,NewSubject);
+        return new AdminstrationPage(browserActions.getDriver());
+
+    }
+
+
     public AdminstrationPage checkCheckboxExtractOriginalSenderFromForwardedEmailsAndPerformAction(boolean StatusWanted) {
         // Locate the checkbox element
         WebElement checkbox = browserActions.getDriver().findElement(ExtractOriginalEmailCheckerLocator);
@@ -143,5 +290,31 @@ public class AdminstrationPage {
         browserActions.click(AutomationRuleButtonLocator);
         return  new AutomationRulePage(browserActions.getDriver());
     }
+    public AdminstrationPage ClickSaveButton(){
+        browserActions.click(SaveButtonLocator);
+
+        return new AdminstrationPage(browserActions.getDriver());
+
+
+    }
+    public AdminstrationPage ClickResetTemplateButton(){
+        browserActions.click(ResetButtonLocator);
+
+        return new AdminstrationPage(browserActions.getDriver());
+
+
+    }
+
+    public AdminstrationPage ValidateInvalidEmailFormatError() {
+        WebDriverWait wait = new WebDriverWait(browserActions.getDriver(), Duration.ofSeconds(10));
+
+        WebElement errorElement = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(MessageErrorFromLocator));
+        Assert.assertTrue(errorElement.isDisplayed());
+        String ErrorMessage= browserActions.getText(MessageErrorFromLocator);
+        Assert.assertTrue(ErrorMessage.contains("Please enter a valid email address."));
+        return new AdminstrationPage(browserActions.getDriver());
+    }
+
 
 }

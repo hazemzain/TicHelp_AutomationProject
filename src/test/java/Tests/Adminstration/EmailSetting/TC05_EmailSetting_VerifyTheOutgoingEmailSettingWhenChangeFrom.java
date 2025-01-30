@@ -1,9 +1,11 @@
-package Tests.Adminstration.GeneralSetting;
+package Tests.Adminstration.EmailSetting;
 
 import Config.Config;
+import HelperClasses.EmailSettingHelperClass;
 import Pages.AdminstrationPages.AdminstrationPage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
+import Pages.TicketsPage.TicketsPage;
 import Tests.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -11,12 +13,14 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
-public class TC11_GeneralSetting_VerifyThatCustomThankYouTextIsDisplayedForNonRegisteredUser extends TestBase {
+public class TC05_EmailSetting_VerifyTheOutgoingEmailSettingWhenChangeFrom extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
     NavBar navBar;
+
 
     @BeforeMethod
     public void setupTest() {
@@ -34,27 +38,22 @@ public class TC11_GeneralSetting_VerifyThatCustomThankYouTextIsDisplayedForNonRe
     }
 
     @Test
-    public void GeneralSetting_TheTicketShouldBeAcceptedAndCustomThanksMessageAppear_WhenSendEmailFromUnregisteredUserAccount() throws InterruptedException {
+    public void EmailSetting_TheEmailShouldHaveTheEmailThatInFrom_WhenChangeTheEmailInOutGoingEmailSetting () throws InterruptedException {
         navigateToUrl();
+        EmailSettingHelperClass Helper=new EmailSettingHelperClass(driver);
+        String TempEmail=Helper.getTempEmail();
         login.ValidLogin();
         new AdminstrationPage(driver)
                 .ClickAdminstrationButton()
-                .ClikInGeneralSetting()
-                .ChangeCustomThanksMessage("Thank you for all thing")
-                .ClickSaveChanges();
-        new AdminstrationPage(driver)
-                .ClickAdminButton()
-                .ClickLogoutButton();
-
-        String ActualMessage=new Login(driver)
-                .ClickSubmitNewTicketButton()
-                .EnterMail("hazemzain17@gmail.com")
-                .EnterNewSubject("Test"+formattedDateTime)
-                .EnterNewDetails("This is for Test Automation HelpDisk")
-                .EnterNewAddress("Egypt")
-                .ClickNewSubmitButton()
-                .GetThanksMessage();
-        Assert.assertEquals(ActualMessage,"Thank you for all thing");
+                .ClickEmailSettingButton()
+                .ModifyTheFromEmail("developer.masrawy@gmail.com")
+                .ClickInTestSmtp()
+                .acceptAlert(TempEmail)//put the email iwe will get from temp email ;
+                .ValidateThatTheEmailSendMessageIsDisplayed();
+        Map<String, String> receivedEmail = Helper.getReceivedEmail();
+        System.out.println(receivedEmail.get("From"));
+        Assert.assertEquals(receivedEmail.get("From"),"developer.masrawy@gmail.com");
 
     }
+
 }

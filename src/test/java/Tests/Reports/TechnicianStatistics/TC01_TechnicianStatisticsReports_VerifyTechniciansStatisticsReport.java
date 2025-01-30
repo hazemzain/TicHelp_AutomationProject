@@ -34,7 +34,7 @@ public class TC01_TechnicianStatisticsReports_VerifyTechniciansStatisticsReport 
     }
 
     @Test()
-    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () {
+    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () throws InterruptedException {
         navigateToUrl();
         login.ValidLogin();
 

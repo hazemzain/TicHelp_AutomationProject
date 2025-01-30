@@ -39,7 +39,7 @@ public class TC12_AutomationRules_VerifyThatTestButtonWorksWithValidTicketID ext
         login.navigateToWebsite(url);
     }
     @Test
-    public void AutomationRules_TheRuleShouldBeCreated_WhenCreateNewRule () {
+    public void AutomationRules_TheRuleShouldBeCreated_WhenCreateNewRule () throws InterruptedException {
         navigateToUrl();
         login.ValidLogin();
 

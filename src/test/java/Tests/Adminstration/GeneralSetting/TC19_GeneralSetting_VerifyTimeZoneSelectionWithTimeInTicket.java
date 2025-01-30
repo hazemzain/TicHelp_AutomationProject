@@ -35,7 +35,7 @@ public class TC19_GeneralSetting_VerifyTimeZoneSelectionWithTimeInTicket extends
         login.navigateToWebsite(url);
     }
     @Test(groups = "GeneralSettingTestCaseFails")
-    public void GeneralSetting_TimeZoneShouldChangeToEgyptTimeInTicket_WhenTimeZoneIsSelectedToEgypt() {
+    public void GeneralSetting_TimeZoneShouldChangeToEgyptTimeInTicket_WhenTimeZoneIsSelectedToEgypt() throws InterruptedException {
         navigateToUrl();
         login.ValidLogin();
         String ExpectedResult=new AdminstrationPage(driver)

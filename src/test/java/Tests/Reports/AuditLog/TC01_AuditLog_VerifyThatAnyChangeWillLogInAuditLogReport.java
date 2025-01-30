@@ -37,7 +37,7 @@ public class TC01_AuditLog_VerifyThatAnyChangeWillLogInAuditLogReport extends Te
     }
 
     @Test
-    public void AuditLog_TheCreateTicketActionShouldLogInAuditLogReport_WhenCreateNewTicket () throws IOException {
+    public void AuditLog_TheCreateTicketActionShouldLogInAuditLogReport_WhenCreateNewTicket () throws IOException, InterruptedException {
         navigateToUrl();
         login.ValidLogin();
         String TicketName="Test"+formattedDateTime;

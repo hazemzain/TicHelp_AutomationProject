@@ -69,6 +69,18 @@ public class BrowserActions {
         Alert alert = driver.switchTo().alert(); // Switch to the alert
         alert.accept(); // Accept the alert
     }
+    public void clear(By locator) {
+        WebElement element = driver.findElement(locator);
+
+        // Explicit wait for element to be interactable
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(element));
+
+        // Clear using Selenium's built-in method
+        element.clear();
+
+
+    }
 
     public WebDriver getDriver() {
        return this.driver;

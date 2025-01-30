@@ -36,7 +36,7 @@ public class TC02_TechnicianStatisticsReports_VerifyCsvTechniciansStatisticsRepo
     }
 
     @Test()
-    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () throws IOException {
+    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () throws IOException, InterruptedException {
         navigateToUrl();
         login.ValidLogin();
 

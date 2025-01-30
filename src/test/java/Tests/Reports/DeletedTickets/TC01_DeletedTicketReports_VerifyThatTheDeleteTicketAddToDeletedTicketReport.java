@@ -37,7 +37,7 @@ public class TC01_DeletedTicketReports_VerifyThatTheDeleteTicketAddToDeletedTick
     }
 
     @Test
-    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () throws IOException {
+    public void TechniciansStatistics_TechniciansStatisticsShouldBeGenerated_WhenChooseTheCorrectTimeAndClickButton () throws IOException, InterruptedException {
         navigateToUrl();
         login.ValidLogin();
 String TicketName="Test"+formattedDateTime;

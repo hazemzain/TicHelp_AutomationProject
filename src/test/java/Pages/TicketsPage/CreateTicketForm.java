@@ -25,7 +25,7 @@ public class CreateTicketForm {
     By CategoryField = By.xpath("//*[@id=\"CategoryRow\"]/td[1]/div/a/i");
     By CatogeryTextLocator=By.xpath("//*[@id=\"CategoryRow\"]/td[1]/div/a/div");//*[@id="CategoryRow"]/td[1]/div/a/div
     By CategorySelection = By.xpath("//li[@class='dropdown-item']//span[@class='dropdown-text' and text()='Anderson']\n");
-    By subject = By.id("Subject");
+    By subject = By.xpath("//*[@id=\"Subject\"]");
     By TextDetails = By.xpath("//*[@id='rteBody']");
     By Address = By.id("CustomFieldValue28");
     private final By NewAddress=By.xpath("//*[@id=\"CustomFieldValue64\"]");
@@ -121,7 +121,8 @@ public class CreateTicketForm {
         select.selectByVisibleText(Priority);
         return  new CreateTicketForm(browserActions.getDriver());
     }
-    public CreateTicketForm EnterNewSubject(String Subject){
+    public CreateTicketForm EnterNewSubject(String Subject) throws InterruptedException {
+        Thread.sleep(Duration.ofSeconds(10));
         browserActions.type(subject,Subject );
         return new CreateTicketForm(browserActions.getDriver());
     }

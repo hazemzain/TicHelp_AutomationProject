@@ -38,7 +38,7 @@ public class TC10_GeneralSetting_VerifyBehaviorWhenTheThankYouTextIsLeftEmpty ex
     }
 
     @Test
-    public void GeneralSetting_TheTicketShouldBeAcceptedAndThanksMessageAppear_WhenSendEmailFromUnregisteredUserAccount() {
+    public void GeneralSetting_TheTicketShouldBeAcceptedAndThanksMessageAppear_WhenSendEmailFromUnregisteredUserAccount() throws InterruptedException {
         navigateToUrl();
 
         String ActualMessage=new Login(driver)

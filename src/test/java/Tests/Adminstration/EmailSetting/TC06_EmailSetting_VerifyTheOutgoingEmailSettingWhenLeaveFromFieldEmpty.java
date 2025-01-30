@@ -1,6 +1,7 @@
-package Tests.Adminstration.GeneralSetting;
+package Tests.Adminstration.EmailSetting;
 
 import Config.Config;
+import HelperClasses.EmailSettingHelperClass;
 import Pages.AdminstrationPages.AdminstrationPage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
@@ -11,12 +12,14 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
-public class TC11_GeneralSetting_VerifyThatCustomThankYouTextIsDisplayedForNonRegisteredUser extends TestBase {
+public class TC06_EmailSetting_VerifyTheOutgoingEmailSettingWhenLeaveFromFieldEmpty extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
     NavBar navBar;
+
 
     @BeforeMethod
     public void setupTest() {
@@ -34,27 +37,17 @@ public class TC11_GeneralSetting_VerifyThatCustomThankYouTextIsDisplayedForNonRe
     }
 
     @Test
-    public void GeneralSetting_TheTicketShouldBeAcceptedAndCustomThanksMessageAppear_WhenSendEmailFromUnregisteredUserAccount() throws InterruptedException {
+    public void EmailSetting_TheErrorMessageShouldBeAppear_WhenLeaveTheEmailFromInOutGoingEmailSettingEmpty () throws InterruptedException {
         navigateToUrl();
         login.ValidLogin();
         new AdminstrationPage(driver)
                 .ClickAdminstrationButton()
-                .ClikInGeneralSetting()
-                .ChangeCustomThanksMessage("Thank you for all thing")
-                .ClickSaveChanges();
-        new AdminstrationPage(driver)
-                .ClickAdminButton()
-                .ClickLogoutButton();
-
-        String ActualMessage=new Login(driver)
-                .ClickSubmitNewTicketButton()
-                .EnterMail("hazemzain17@gmail.com")
-                .EnterNewSubject("Test"+formattedDateTime)
-                .EnterNewDetails("This is for Test Automation HelpDisk")
-                .EnterNewAddress("Egypt")
-                .ClickNewSubmitButton()
-                .GetThanksMessage();
-        Assert.assertEquals(ActualMessage,"Thank you for all thing");
+                .ClickEmailSettingButton()
+                .ModifyTheFromEmail("")
+                .ClickSaveButton()
+                .ValidateTheEmptyFromField()
+                ;
 
     }
+
 }

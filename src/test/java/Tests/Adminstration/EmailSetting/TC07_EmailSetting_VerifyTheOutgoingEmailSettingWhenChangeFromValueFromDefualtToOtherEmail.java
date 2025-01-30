@@ -1,6 +1,7 @@
-package Tests.Adminstration.GeneralSetting;
+package Tests.Adminstration.EmailSetting;
 
 import Config.Config;
+import HelperClasses.EmailSettingHelperClass;
 import Pages.AdminstrationPages.AdminstrationPage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
@@ -11,12 +12,14 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
-public class TC11_GeneralSetting_VerifyThatCustomThankYouTextIsDisplayedForNonRegisteredUser extends TestBase {
+public class TC07_EmailSetting_VerifyTheOutgoingEmailSettingWhenChangeFromValueFromDefualtToOtherEmail extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
     NavBar navBar;
+
 
     @BeforeMethod
     public void setupTest() {
@@ -34,27 +37,20 @@ public class TC11_GeneralSetting_VerifyThatCustomThankYouTextIsDisplayedForNonRe
     }
 
     @Test
-    public void GeneralSetting_TheTicketShouldBeAcceptedAndCustomThanksMessageAppear_WhenSendEmailFromUnregisteredUserAccount() throws InterruptedException {
+    public void EmailSetting_ErrorMessageWillAppear_WhenChangeTheEmailFormInOutGoingEmailSetting () throws InterruptedException {
         navigateToUrl();
+        EmailSettingHelperClass Helper=new EmailSettingHelperClass(driver);
+        String TempEmail=Helper.getTempEmail();
         login.ValidLogin();
         new AdminstrationPage(driver)
                 .ClickAdminstrationButton()
-                .ClikInGeneralSetting()
-                .ChangeCustomThanksMessage("Thank you for all thing")
-                .ClickSaveChanges();
-        new AdminstrationPage(driver)
-                .ClickAdminButton()
-                .ClickLogoutButton();
+                .ClickEmailSettingButton()
+                .ModifyTheFromEmail("hazemzain17@gmail.com")
+                .ClickInTestSmtp()
+                .acceptAlert(TempEmail)//put the email iwe will get from temp email ;
+                .ValidateThatTheEmailErrorMessageIsDisplayed();
 
-        String ActualMessage=new Login(driver)
-                .ClickSubmitNewTicketButton()
-                .EnterMail("hazemzain17@gmail.com")
-                .EnterNewSubject("Test"+formattedDateTime)
-                .EnterNewDetails("This is for Test Automation HelpDisk")
-                .EnterNewAddress("Egypt")
-                .ClickNewSubmitButton()
-                .GetThanksMessage();
-        Assert.assertEquals(ActualMessage,"Thank you for all thing");
 
     }
+
 }

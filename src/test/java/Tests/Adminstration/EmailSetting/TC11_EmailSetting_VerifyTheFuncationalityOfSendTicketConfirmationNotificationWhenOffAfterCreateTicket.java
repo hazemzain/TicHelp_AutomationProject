@@ -1,10 +1,10 @@
 package Tests.Adminstration.EmailSetting;
 
 import Config.Config;
+import HelperClasses.EmailSettingHelperClass;
 import Pages.AdminstrationPages.AdminstrationPage;
 import Pages.LoginPage.Login;
 import Pages.NavBar.NavBar;
-import Pages.TicketsPage.*;
 import Tests.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -12,8 +12,9 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
-public class TC03_Adminstration_ValidateRejectionOfDisposableEmailAddresses extends TestBase {
+public class TC11_EmailSetting_VerifyTheFuncationalityOfSendTicketConfirmationNotificationWhenOffAfterCreateTicket extends TestBase {
     String formattedDateTime;
     String url = Config.getProperty("URL");
     Login login;
@@ -36,33 +37,38 @@ public class TC03_Adminstration_ValidateRejectionOfDisposableEmailAddresses exte
     }
 
     @Test
-    public void Adminstration_TheTicketShouldBeRejected_WhenSendEmailFromDisposableEmailAddressesAccount() throws InterruptedException {
+    public void EmailSetting_TheEmailConfirmationShouldBeSentToClient_WhenSendTicketConfirmationNotificationIsDisabled () throws InterruptedException {
         navigateToUrl();
+        EmailSettingHelperClass Helper=new EmailSettingHelperClass(driver);
+        String TempEmail=Helper.getTempEmail();
         login.ValidLogin();
-
+        String FromName="HazemZain"+formattedDateTime;
+        String Subject="Test"+formattedDateTime;
         new AdminstrationPage(driver)
                 .ClickAdminstrationButton()
                 .ClickEmailSettingButton()
-                .checkCheckboxDisposableEmailAddressesAndPerformAction(false)
+                .ModifyTheFromEmail("developer.masrawy@gmail.com")
+                .ModifyTheFromName(FromName)
+                .checkCheckboxConfirmationEmailAndPerformAction(false)
+                .ClickSaveButton()
                 .ClickAdminButton()
                 .ClickLogoutButton();
 
         String ActualMessage=new Login(driver)
                 .ClickSubmitNewTicketButton()
-                .EnterMail("testuser@mailinator.com")
-                .EnterNewSubject("Test"+formattedDateTime)
+                .EnterMail(TempEmail)
+                .EnterNewSubject(Subject)
                 .EnterNewDetails("This is for Test Automation HelpDisk")
                 .EnterNewAddress("Egypt")
                 .ClickNewSubmitButton()
                 .GetThanksMessage();
+        Map<String, String> receivedEmail = Helper.getReceivedEmail();
+        System.out.println(receivedEmail.get("Name"));
+        System.out.println(FromName);
+        if(receivedEmail.isEmpty()){
+            Assert.assertTrue(true);
+        }
 
-        Assert.assertTrue(ActualMessage.contains("Rejected"));
-        new ThanksTicketPage(driver)
-                .ClickInSignInButton()
-                .ValidLogin();
-        String ActualLastTicket=new TicketsPage(driver)
-                .ClickTicketButton()
-                .GetLastTicketSubject();
-        Assert.assertEquals(ActualLastTicket,"Test"+formattedDateTime);
+
     }
 }

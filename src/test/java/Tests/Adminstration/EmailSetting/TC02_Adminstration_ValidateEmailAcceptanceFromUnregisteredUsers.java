@@ -41,7 +41,7 @@ public class TC02_Adminstration_ValidateEmailAcceptanceFromUnregisteredUsers ext
     }
 
     @Test
-    public void Adminstration_TheTicketShouldBeAccepted_WhenSendEmailFromUnregisteredUserAccount(){
+    public void Adminstration_TheTicketShouldBeAccepted_WhenSendEmailFromUnregisteredUserAccount() throws InterruptedException {
         navigateToUrl();
         login.ValidLogin();
          new AdminstrationPage(driver)

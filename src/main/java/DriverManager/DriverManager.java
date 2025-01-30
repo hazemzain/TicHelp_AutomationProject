@@ -17,12 +17,18 @@ public class DriverManager {
 
     public static WebDriver getDriver() {
         if (driver == null) {
+            EdgeOptions options = new EdgeOptions();
+            options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
+            options.setExperimentalOption("useAutomationExtension", false);
+            options.addArguments("--disable-blink-features=AutomationControlled");
+
+            driver = new EdgeDriver(options);
 
 
             WebDriverManager.edgedriver().setup();
 
 
-            driver = new EdgeDriver();
+           // driver = new EdgeDriver();
 
 
             driver.manage().window().maximize();

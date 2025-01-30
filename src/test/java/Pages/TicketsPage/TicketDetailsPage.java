@@ -40,7 +40,12 @@ public class TicketDetailsPage {
     private final By TimeForLastTicket=By.xpath("//*[@id=\"lblTicketDate\"]");
     private final  By NumberOfTicketLocator=By.xpath("//*[@id=\"h2TicketId\"]");
     private final By AssignToLocator=By.xpath("//*[@id=\"content\"]/div[5]/div[2]/table[1]/tbody[1]/tr[7]/td[2]/div/div[1]");
+    private final By DeleteButtonLocator=By.xpath("//*[@id=\"btnClose\"]");
     //Actions
+    public TicketsHomePage ClickInDeleteTicketButton(){
+        browserActions.click(DeleteButtonLocator);
+        return new TicketsHomePage(browserActions.getDriver());
+    }
     public void NavigateToTicketDetailsPage(String TicketName){
         browserActions.click(TicketDetailsPage(TicketName));
 
