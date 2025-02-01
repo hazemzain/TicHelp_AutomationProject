@@ -23,6 +23,7 @@ public class Login {
     private final By SubmitNewTicketLocator=By.xpath("//td/button[@class='submit_new_ticket']");
     //*[@id="newTicket"]/a//Actions
     private final By SubmitNewTicketLocator2=By.xpath("//*[@id=\"newTicket\"]/a");
+    private final By RegisterButtonLocator=By.xpath("//*[@id=\"loginForm\"]/table/tbody/tr[6]/td/a[2]");
     public void navigateToWebsite(String url){
         browserActions.navigateToURl(url);
     }
@@ -52,6 +53,11 @@ public class Login {
         browserActions.click(SubmitNewTicketLocator);
         return new CreateTicketForm(browserActions.getDriver());
 
+    }
+
+    public RegisterPage ClickInRegister(){
+        browserActions.click(RegisterButtonLocator);
+        return new RegisterPage(browserActions.getDriver());
     }
 
 

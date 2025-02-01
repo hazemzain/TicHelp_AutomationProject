@@ -38,7 +38,7 @@ public EmailSettingHelperClass(WebDriver driver){
         _driver.get("https://temp-mail.org/");
 
         // Wait for the email field to load
-        WebDriverWait wait = new WebDriverWait(_driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(_driver, Duration.ofSeconds(50));
         WebElement emailElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mail")));
         tempEmail = emailElement.getAttribute("value");
 
