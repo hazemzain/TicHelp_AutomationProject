@@ -90,6 +90,14 @@ public class RegisterPage {
         return  browserActions.findElement(By.xpath("//*[@id=\"PasswordConfirm-error\"]")).getText();
 
     }
+    public String GetMessageErrorForPassword(){
+        return  browserActions.findElement(By.xpath("//*[@id=\"Password-error\"]")).getText();
 
+    }
+public String GetMessageForSuccessRegister(){
+    //*[@id="user-form"]/table/tbody/tr[2]/td/span
+    return  browserActions.findElement(By.xpath("//*[@id=\"user-form\"]/table/tbody/tr[2]/td/span")).getText();
+
+}
 
 }

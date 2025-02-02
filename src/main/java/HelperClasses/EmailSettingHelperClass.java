@@ -29,7 +29,7 @@ public EmailSettingHelperClass(WebDriver driver){
         _driver=driver;
 
 }
-    public String getTempEmail() {
+    public String getTempEmail() throws InterruptedException {
         // Store the main window handle
         mainWindow = _driver.getWindowHandle();
 
@@ -38,6 +38,7 @@ public EmailSettingHelperClass(WebDriver driver){
         _driver.get("https://temp-mail.org/");
 
         // Wait for the email field to load
+        Thread.sleep(Duration.ofSeconds(20));
         WebDriverWait wait = new WebDriverWait(_driver, Duration.ofSeconds(50));
         WebElement emailElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("mail")));
         tempEmail = emailElement.getAttribute("value");
