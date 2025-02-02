@@ -6,13 +6,16 @@ import Pages.LoginPage.Login;
 import Pages.LoginPage.RegisterPage;
 import Pages.NavBar.NavBar;
 import Tests.TestBase;
+import Tests.TestListener;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+@Listeners(TestListener.class)
 
 public class TC06_Register_VerifyTheBehaviorOfSystemWhenRegisterWithValidData extends TestBase {
     String formattedDateTime;

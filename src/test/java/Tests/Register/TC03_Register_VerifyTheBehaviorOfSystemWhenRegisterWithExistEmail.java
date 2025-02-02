@@ -5,13 +5,16 @@ import Pages.LoginPage.Login;
 import Pages.LoginPage.RegisterPage;
 import Pages.NavBar.NavBar;
 import Tests.TestBase;
+import io.qameta.allure.testng.AllureTestNg;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+@Listeners({AllureTestNg.class})
 
 public class TC03_Register_VerifyTheBehaviorOfSystemWhenRegisterWithExistEmail extends TestBase {
     String formattedDateTime;

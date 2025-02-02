@@ -6,14 +6,13 @@ import Pages.LoginPage.Login;
 import Pages.LoginPage.RegisterPage;
 import Pages.NavBar.NavBar;
 import Tests.TestBase;
+import io.qameta.allure.testng.AllureTestNg;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+@Listeners({AllureTestNg.class})
 
 public class TC05_Register_VerifyTheBehaviorOfSystemWhenRegisterWithInvalidPassword extends TestBase {
     String formattedDateTime;
