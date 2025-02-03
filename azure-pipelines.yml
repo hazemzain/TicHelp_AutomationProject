@@ -1,5 +1,5 @@
-# Maven CI/CD Pipeline
-# Builds Java project, runs tests, and installs the required JDK.
+# Maven CI/CD Pipeline for Java
+# Builds the project, installs JDK, and runs tests.
 
 trigger:
   - master
@@ -10,18 +10,18 @@ pool:
     - agent.name -equals HAZEMZAIN  # Ensure this matches the actual agent name
 
 steps:
+  # Install JDK 21
   - task: JavaToolInstaller@0
     inputs:
       versionSpec: '21'  # Use '11' if Maven needs Java 11
       jdkArchitecture: 'x64'
 
+  # Run Maven tests
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
-      javaHomeOption: 'Path'  # Use 'Path' if Java is installed manually
-      jdkVersionOption: '1.21'  # Ensure this matches the installed JDK version
-      jdkArchitectureOption: 'x64'
+      javaHomeOption: 'Installed'  # ✅ Change from JDKVersion to Installed
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'test'
