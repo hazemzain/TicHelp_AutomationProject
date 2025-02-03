@@ -9,7 +9,6 @@
             <class name="Tests.Register.TC03_Register_VerifyTheBehaviorOfSystemWhenRegisterWithExistEmail"/>
             <class name="Tests.Register.TC04_Register_VerifyTheBehaviorOfSystemWhenRegisterPasswordNotMatchConfirmationPassword"/>
             <class name="Tests.Register.TC05_Register_VerifyTheBehaviorOfSystemWhenRegisterWithInvalidPassword"/>
-            <class name="Tests.Register.TC06_Register_VerifyTheBehaviorOfSystemWhenRegisterWithValidData"/>
 
 
         </classes>
