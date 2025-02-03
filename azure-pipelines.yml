@@ -28,3 +28,4 @@ steps:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'test'
+      options: '-DsuiteXmlFile=src/test/resources/Register.xml' 
