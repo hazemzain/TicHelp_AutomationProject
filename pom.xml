@@ -132,6 +132,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
                 <configuration>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <suiteXmlFiles>
                         <suiteXmlFile>Register.xml</suiteXmlFile> <!-- Path to your XML file -->
                     </suiteXmlFiles>
