@@ -29,7 +29,7 @@ public class AdminstrationPage {
    private  final By ExtractOriginalEmailCheckerLocator=By.xpath("//*[@id=\"ExtractOriginalSenderFromFwd\"]");
    private final By UserButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[1]/tbody/tr[2]/td/div/a");
    private final By CheckLanguageLocator=By.xpath("//*[@id=\"divBigHeader\"]/ul[1]/li[6]/a");
-   private final By AutomationRuleButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/table[3]/tbody/tr[1]/td[1]/div/a");
+   private final By AutomationRuleButtonLocator=By.xpath("//div/a[@href=\"/Admin/Rules\"]");
    private final By FromEmailLocator=By.xpath("//*[@id=\"FromAddress\"]");
    private final By TestSmtpLocator=By.xpath("//*[@id=\"aspnetForm\"]/div[1]/table[2]/tbody[6]/tr/td/input[1]");
    private final By MessageEmailSendLocator=By.xpath("//*[@id=\"aspnetForm\"]/div[1]/div");
