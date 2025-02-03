@@ -10,19 +10,21 @@ pool:
     - agent.name -equals HAZEMZAIN  # Ensure this matches the actual agent name
 
 steps:
-  # Install JDK 21
-  - task: JavaToolInstaller@0
-    inputs:  # ✅ Added missing 'inputs' key
-      versionSpec: '21'
-      jdkArchitecture: 'x64'  # ✅ Corrected from 'jdkArchitectureOption'
-      jdkSourceOption: 'PreInstalled'
+  # Check Java version and set JAVA_HOME
+  - script: |
+      echo Setting JAVA_HOME and updating PATH...
+      set JAVA_HOME=C:\Program Files\Java\jdk-21
+      set PATH=%JAVA_HOME%\bin;%PATH%
+      java -version
+    displayName: 'Check Java Version (CMD)'
 
   # Run Maven tests
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
-      javaHomeOption: 'Installed'  # ✅ Change from JDKVersion to Installed
+      javaHomeOption: 'Path'  # ✅ Change from Installed to Path for manual JAVA_HOME
+      jdkDirectory: 'C:\Program Files\Java\jdk-21'  # ✅ Set explicit Java path
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'test'
