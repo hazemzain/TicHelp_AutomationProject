@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AutomationRulePage {
-    private final By CreateNewRuleLocator= By.xpath("//*[@id=\"content\"]/div[5]/div/p[1]/a");
+    private final By CreateNewRuleLocator= By.xpath("//a[@href=\"/Admin/EditRule\"]");
     private final By RULE_ROWS = By.xpath("//table[@id='rules']//tr[starts-with(@id, 'rule_') or @data-name]");
     private final By ExpandXMLLocator=By.xpath("//*[@id=\"content\"]/div[5]/div/div/a");
     private final By SearchLocator=By.xpath("//*[@id=\"content\"]/div[5]/div/p[1]/input");

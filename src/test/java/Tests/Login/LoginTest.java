@@ -17,7 +17,7 @@ import java.io.IOException;
 public class LoginTest extends TestBase {
     String url = Config.getProperty("URL");
     Login login;
-    String jsonFilePath = "C:\\Users\\Administrator\\Desktop\\Tickhelp\\Automation_selenuimFrameWork\\src\\resources\\testData\\LoginData.json";
+    String jsonFilePath = "D:\\GBG_Projects\\TicHelp-ddt-tickets\\TicHelp-ddt-tickets\\src\\resources\\testData\\LoginData.json";
 
     @BeforeMethod
     public void setupTest() {
