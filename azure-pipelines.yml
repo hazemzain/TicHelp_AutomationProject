@@ -1,24 +1,27 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+# Maven CI/CD Pipeline
+# Builds Java project, runs tests, and installs the required JDK.
 
 trigger:
-- master
+  - master
 
 pool:
   name: 'Default'
   demands:
-    - agent.name -equals HAZEMZAIN  # Replace with actual agent name
+    - agent.name -equals HAZEMZAIN  # Ensure this matches the actual agent name
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'test'
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '21'  # Use '11' if Maven needs Java 11
+      jdkArchitecture: 'x64'
+
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'Path'  # Use 'Path' if Java is installed manually
+      jdkVersionOption: '1.21'  # Ensure this matches the installed JDK version
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'test'
