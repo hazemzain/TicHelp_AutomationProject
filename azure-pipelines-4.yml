@@ -28,7 +28,7 @@ steps:
       jdkDirectory: 'C:\Program Files\Java\jdk-21'  # ✅ Set explicit Java path
       publishJUnitResults: true
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      testResultsFiles: '**/surefire-reports/TEST-TestSuite.xml'
       options: '-Dtest=Register'
       goals: 'test'
    
