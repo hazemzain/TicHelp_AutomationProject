@@ -12,9 +12,10 @@ pool:
 steps:
   # Install JDK 21
   - task: JavaToolInstaller@0
-    inputs:
-      versionSpec: '21'  # Use '11' if Maven needs Java 11
-      jdkArchitecture: 'x64'
+    inputs:  # ✅ Added missing 'inputs' key
+      versionSpec: '21'
+      jdkArchitecture: 'x64'  # ✅ Corrected from 'jdkArchitectureOption'
+      jdkSourceOption: 'PreInstalled'
 
   # Run Maven tests
   - task: Maven@3
