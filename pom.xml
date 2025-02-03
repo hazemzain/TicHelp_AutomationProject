@@ -133,7 +133,7 @@
                 <version>3.0.0-M7</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile> <!-- Path to your XML file -->
+                        <suiteXmlFile>Register.xml</suiteXmlFile> <!-- Path to your XML file -->
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

@@ -33,7 +33,7 @@ public class ReportPage {
     private final By TechnitionLocator=By.xpath("//*[@id=\"content\"]/div[6]/form/table[2]/tbody/tr[2]/td[1]/div/a");
     private final By DeletedTickets=By.xpath("//*[@id=\"content\"]/div[6]/form/table[3]/tbody/tr[1]/td[1]/div/a");
     private final By AuditLogButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[3]/tbody/tr[1]/td[2]/div/a");
-    private final By SummeryReportButtonLocator=By.xpath("//*[@id=\"content\"]/div[5]/form/table[1]/tbody/tr[1]/td[1]/div/a");
+    private final By SummeryReportButtonLocator=By.xpath("//div/a[@href=\"/Reporting/Summary\"]");
     private  WebDriver driver;
     private  WebDriverWait wait;
 
