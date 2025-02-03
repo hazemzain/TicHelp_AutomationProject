@@ -35,8 +35,6 @@ public class TC06_Register_VerifyTheBehaviorOfSystemWhenRegisterWithValidData ex
         // Format the date and time as needed
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         formattedDateTime = currentDateTime.format(formatter);
-
-
     }
     public void navigateToUrl() {
         login.navigateToWebsite(url);
