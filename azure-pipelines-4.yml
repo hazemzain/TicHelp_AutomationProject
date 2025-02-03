@@ -18,7 +18,11 @@ steps:
       set PATH=%JAVA_HOME%\bin;%PATH%
       java -version
     displayName: 'Check Java Version (CMD)'
-
+# Run Maven tests with the suiteXmlFile parameter
+  - script: |
+      echo Running Maven tests with Register.xml suite...
+      mvn test -DsuiteXmlFile=Register
+    displayName: 'Run Maven Test with Register.xml'
   # Run Maven tests
   - task: Maven@3
     inputs:
@@ -29,6 +33,6 @@ steps:
       publishJUnitResults: true
       testResultsFormat: 'JUnit'
       testResultsFiles: 'D:/GBG_Projects/TicHelp-ddt-tickets/TicHelp-ddt-tickets/target/surefire-reports/TEST-TestSuite.xml'
-      options: '-Dtest=Register'
+      #options: '-Dtest=Register'
       goals: 'test'
    
