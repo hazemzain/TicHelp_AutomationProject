@@ -1,0 +1,46 @@
+# Maven CI/CD Pipeline for Java
+# Builds the project, installs JDK, and runs tests.
+
+trigger:
+  - master
+
+pool:
+  name: 'Default'
+  demands:
+    - agent.name -equals HAZEMZAIN  # Ensure this matches the actual agent name
+
+steps:
+  # Check Java version and set JAVA_HOME
+  - script: |
+      echo Setting JAVA_HOME and updating PATH...
+      set JAVA_HOME=C:\Program Files\Java\jdk-21
+      set PATH=%JAVA_HOME%\bin;%PATH%
+      java -version
+    displayName: 'Check Java Version (CMD)'
+
+  # Setup EdgeDriver
+  - script: |
+      echo Setting up EdgeDriver...
+      set WEBDRIVER_EDGE=C:\WebDriver\msedgedriver.exe
+      set PATH=%WEBDRIVER_EDGE%;%PATH%
+      echo Checking EdgeDriver version...
+      %WEBDRIVER_EDGE% --version
+    displayName: 'Setup EdgeDriver'
+
+  # Run Maven tests with suiteXmlFile
+  - script: |
+      echo Running Maven tests with Register.xml suite...
+      mvn test -DsuiteXmlFile=Register
+    displayName: 'Run Maven Test with Register.xml'
+
+  # Run Maven tests and generate reports
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'Path'  
+      jdkDirectory: 'C:\Program Files\Java\jdk-21'  
+      publishJUnitResults: true
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'D:/GBG_Projects/TicHelp-ddt-tickets/TicHelp-ddt-tickets/target/surefire-reports/TEST-TestSuite.xml'  
+      goals: 'test'
