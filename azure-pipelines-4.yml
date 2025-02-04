@@ -42,5 +42,5 @@ steps:
       jdkDirectory: 'C:\Program Files\Java\jdk-21'  
       publishJUnitResults: true
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/target/surefire-reports/TEST-*.xml'  
+      testResultsFiles: 'D:/GBG_Projects/TicHelp-ddt-tickets/TicHelp-ddt-tickets/target/surefire-reports/TEST-TestSuite.xml'  
       goals: 'test'
