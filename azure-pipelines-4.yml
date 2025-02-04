@@ -56,6 +56,11 @@ steps:
       echo Generating Allure report...
       mvn allure:report
     displayName: 'Generate Allure Report'
+ # Generate Allure Report
+  - script: |
+      echo Prepere Allure report...
+      mvn allure:serve
+    displayName: 'Display Allure Report'
 
   # Publish Allure Report as a Build Artifact
   - task: PublishBuildArtifacts@1
