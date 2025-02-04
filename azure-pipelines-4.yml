@@ -30,7 +30,7 @@ steps:
   # Run Maven tests with suiteXmlFile
   - script: |
       echo Running Maven tests with Register.xml suite...
-      mvn test -Dsurefire.suiteXmlFiles=Register
+      mvn test -DsuiteXmlFile=Register
     displayName: 'Run Maven Test with Register.xml'
 
   # Run Maven tests and generate reports
