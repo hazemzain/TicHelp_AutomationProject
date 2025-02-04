@@ -60,6 +60,6 @@ steps:
   # Publish Allure Report as a Build Artifact
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: 'D:/GBG_Projects/TicHelp-ddt-tickets/TicHelp-ddt-tickets/target/site/allure-maven-plugin/'
+      pathToPublish: 'D:\GBG_Projects\TicHelp-ddt-tickets\TicHelp-ddt-tickets\target\allure-results'
       artifactName: 'AllureReport'
     displayName: 'Upload Allure Report'
