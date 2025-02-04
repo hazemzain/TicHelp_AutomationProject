@@ -21,6 +21,12 @@ public class DriverManager {
             options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
             options.setExperimentalOption("useAutomationExtension", false);
             options.addArguments("--disable-blink-features=AutomationControlled");
+// Ensure stable execution in Azure Pipeline (headless mode)
+            options.addArguments("--headless=new"); // New headless mode (improves stability)
+            options.addArguments("--disable-gpu"); // Disable GPU acceleration
+            options.addArguments("--no-sandbox"); // Bypass OS security restrictions
+            options.addArguments("--disable-dev-shm-usage"); // Prevent shared memory issues
+            options.addArguments("--remote-debugging-port=9222"); // Fix "DevToolsActivePort" issue
 
             driver = new EdgeDriver(options);
 
