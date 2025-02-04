@@ -1,4 +1,3 @@
-
 # Maven CI/CD Pipeline for Java
 # Builds the project, installs JDK, and runs tests.
 
@@ -18,21 +17,30 @@ steps:
       set PATH=%JAVA_HOME%\bin;%PATH%
       java -version
     displayName: 'Check Java Version (CMD)'
-# Run Maven tests with the suiteXmlFile parameter
+
+  # Setup EdgeDriver
+  - script: |
+      echo Setting up EdgeDriver...
+      set WEBDRIVER_EDGE=C:\WebDriver\msedgedriver.exe
+      set PATH=%WEBDRIVER_EDGE%;%PATH%
+      echo Checking EdgeDriver version...
+      %WEBDRIVER_EDGE% --version
+    displayName: 'Setup EdgeDriver'
+
+  # Run Maven tests with suiteXmlFile
   - script: |
       echo Running Maven tests with Register.xml suite...
-      mvn test -DsuiteXmlFile=Register
+      mvn test -Dsurefire.suiteXmlFiles=src/test/resources/Register.xml
     displayName: 'Run Maven Test with Register.xml'
-  # Run Maven tests
+
+  # Run Maven tests and generate reports
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
-      javaHomeOption: 'Path'  # ✅ Change from Installed to Path for manual JAVA_HOME
-      jdkDirectory: 'C:\Program Files\Java\jdk-21'  # ✅ Set explicit Java path
+      javaHomeOption: 'Path'  
+      jdkDirectory: 'C:\Program Files\Java\jdk-21'  
       publishJUnitResults: true
       testResultsFormat: 'JUnit'
-      testResultsFiles: 'D:/GBG_Projects/TicHelp-ddt-tickets/TicHelp-ddt-tickets/target/surefire-reports/TEST-TestSuite.xml'
-      #options: '-Dtest=Register'
+      testResultsFiles: '**/target/surefire-reports/TEST-*.xml'  
       goals: 'test'
-   
